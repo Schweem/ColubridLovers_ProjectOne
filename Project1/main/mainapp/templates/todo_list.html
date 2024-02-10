@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Todo List</title>
+    <!-- Link to the Bootstrap CSS for styling -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         /* Your styles here */
@@ -12,12 +13,13 @@
     <div class="container">
         <h1>Todo List</h1>
         <ul class="todo-list">
+            <!-- Loop over each todo item in the todos list -->
             {% for todo in todos %}
-
-            <!-- Make a table to hold the todolist items, title, description, and a yes or no based on completion-->
+            <!-- Create a table to display the todo items -->
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <!-- Define the table headers -->
                         <th scope="col">Title</th>
                         <th scope="col">Description</th>
                         <th scope="col">Completed</th>
@@ -25,10 +27,12 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <!-- Display the title, description, and completion status of the current todo item -->
                         <td>{{ todo.title }}</td>
                         <td>{{ todo.description }}</td>
                         <td>{{ todo.completed }}</td>
                         <td>
+                            <!-- Form to mark the current todo item as completed -->
                             <form method="post" action="{% url 'mark_todo_completed' todo.id %}">
                             {% csrf_token %}
                             <input type="hidden" name="completed" value="True">
@@ -36,6 +40,7 @@
                             </form>
                         </td>
                         <td>        
+                            <!-- Form to delete the current todo item -->
                             <form method="post" action="{% url 'delete_todo' todo.id %}">
                                 {% csrf_token %}
                                 <button type="submit">Delete</button>
@@ -46,11 +51,11 @@
             </table>
             {% endfor %}
         </ul>
-        <!-- Button trigger modal -->
+        <!-- Button to trigger the add item modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTodoModal">
             Add Item
         </button>
-        <!-- Modal -->
+        <!-- Modal for adding a new item -->
         <div class="modal fade" id="addTodoModal" tabindex="-1" role="dialog" aria-labelledby="addTodoModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -61,6 +66,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <!-- Form to add a new item -->
                         <form method="post">
                             {% csrf_token %}
                             {{ form.as_p }}
@@ -72,6 +78,7 @@
         </div>
         <!-- Your other code here -->
     </div>
+    <!-- Include jQuery and Bootstrap JS for the modal and other features -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>

@@ -1,7 +1,11 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import TodoListForm
 from .forms import TodoListForm
+from .forms import EventForm
 from .models import TodoList
+from .models import Event
+from datetime import date, timedelta
+
 # I got a lot of help from here 
 #https://www.w3schools.com/django
 
@@ -32,3 +36,28 @@ def mark_todo_completed(request, todo_id):
     todo.completed = True
     todo.save()
     return redirect('todo_list')
+
+from django.shortcuts import render
+from datetime import date, timedelta
+from .models import Event
+
+
+def calendar(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('calendar')
+    else:
+        form = EventForm()
+    # Get today's date
+    today = date.today()
+    # Calculate the start and end of the week
+    start_of_week = today
+    days = [start_of_week + timedelta(days=i) for i in range(7)]
+    # Get the events for each day
+    events_by_day = [
+        Event.objects.filter(date=day)
+        for day in days
+    ]
+    return render(request, 'calendar.html', {'days': days, 'events_by_day': events_by_day, 'form': form})

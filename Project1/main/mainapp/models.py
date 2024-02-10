@@ -6,3 +6,10 @@ class TodoList(models.Model):
     description = models.TextField()
     completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
+class Event(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    date = models.DateField()
+    time = models.TimeField()
+    created_at = models.DateTimeField(auto_now_add=True)

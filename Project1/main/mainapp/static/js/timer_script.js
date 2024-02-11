@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     let interval;
     let isRunning = false;
+    let remaining = null; // To store remaining time when paused
     const display = document.querySelector('#timer-display');
     const durations = {
         pomodoro: 25 * 60,
@@ -10,8 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentDuration = durations.pomodoro; // Default to Pomodoro
 
     function startTimer(duration) {
-        if (isRunning) return; // Prevent multiple intervals
-        let timer = duration, minutes, seconds;
+        let timer = remaining !== null ? remaining : duration;
+        clearInterval(interval); // Clear any existing interval
         isRunning = true;
         interval = setInterval(function () {
             minutes = parseInt(timer / 60, 10);
@@ -26,6 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 clearInterval(interval);
                 alert("Time's up!");
                 isRunning = false;
+                remaining = null; // Reset remaining time
+            } else {
+                remaining = timer; // Store remaining time
             }
         }, 1000);
     }
@@ -43,21 +47,37 @@ document.addEventListener('DOMContentLoaded', function() {
         clearInterval(interval);
         display.textContent = "25:00";
         isRunning = false;
+        remaining = null; // Reset remaining time
         currentDuration = durations.pomodoro; // Reset to default Pomodoro time
     });
 
     document.querySelector('#pomodoro').addEventListener('click', function () {
         currentDuration = durations.pomodoro;
         display.textContent = "25:00";
+        remaining = null; // Reset remaining time
+        if (isRunning) {
+            clearInterval(interval);
+            startTimer(currentDuration); // Start new timer if one is running
+        }
     });
 
     document.querySelector('#short-break').addEventListener('click', function () {
         currentDuration = durations.shortBreak;
         display.textContent = "05:00";
+        remaining = null; // Reset remaining time
+        if (isRunning) {
+            clearInterval(interval);
+            startTimer(currentDuration); // Start new timer if one is running
+        }
     });
 
     document.querySelector('#long-break').addEventListener('click', function () {
         currentDuration = durations.longBreak;
         display.textContent = "10:00";
+        remaining = null; // Reset remaining time
+        if (isRunning) {
+            clearInterval(interval);
+            startTimer(currentDuration); // Start new timer if one is running
+        }
     });
 });

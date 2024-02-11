@@ -1,3 +1,4 @@
+from calendar import monthrange
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import TodoListForm
 from .forms import TodoListForm
@@ -42,22 +43,48 @@ from datetime import date, timedelta
 from .models import Event
 
 
-def calendar(request):
-    if request.method == 'POST':
+from calendar import monthcalendar
+
+from calendar import monthcalendar
+from datetime import timedelta
+
+def calendar(request, period): # Written in large part by copilot
+    today = date.today()
+
+    if(request.method == 'POST'):
         form = EventForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('calendar')
+            return redirect('calendar', period=period)
     else:
         form = EventForm()
-    # Get today's date
-    today = date.today()
-    # Calculate the start and end of the week
-    start_of_week = today
-    days = [start_of_week + timedelta(days=i) for i in range(7)]
-    # Get the events for each day
-    events_by_day = [
-        Event.objects.filter(date=day)
-        for day in days
-    ]
-    return render(request, 'calendar.html', {'days': days, 'events_by_day': events_by_day, 'form': form})
+
+    if period == 'month':
+        # Create a calendar for the current month
+        cal = monthcalendar(today.year, today.month)
+    elif period == 'week':
+        # Create a calendar for the current week
+        start_week = today - timedelta(days=today.weekday())  # Monday
+        end_week = start_week + timedelta(days=6)  # Sunday
+        cal = [list(range(start_week.day, end_week.day + 1))]
+    elif period == 'day':
+        # Create a calendar for the current day
+        cal = [[today.day]]
+
+    # Create the weeks list
+    weeks = []
+    for week in cal:
+        week_days = []
+        for day in week:
+            if day == 0:  # day outside of the month
+                week_days.append(None)
+            else:
+                # Fetch events from your database here
+                events = Event.objects.filter(date=date(today.year, today.month, day))
+                week_days.append({
+                    'day': day,
+                    'events': events
+                })
+        weeks.append(week_days)
+
+    return render(request, 'calendar.html', {'weeks': weeks, 'form': form})

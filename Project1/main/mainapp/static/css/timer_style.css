@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.timer-container {
+    text-align: center;
+}
+
+#timer-display {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.buttons button, .settings button {
+    margin: 0 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.settings {
+    margin-top: 20px;
+}

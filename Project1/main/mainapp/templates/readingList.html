@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reading List</title>
+</head>
+<body>
+  <h2>Add Reading Material</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="form_type" value="add">
+    <input type="submit" value="Add">
+  </form>  
+  <h2>Reading List</h2>
+  <table>
+      <thead>
+          <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Type</th>
+              <th>Link</th>
+              <th>Mark Read</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for item in reading_list %}
+              <tr class="{% if item.read %}read{% endif %}">
+                  <td>{{ item.title }}</td>
+                  <td>{{ item.author }}</td>
+                  <td>{{ item.type }}</td>
+                  <td><a href="{{ item.link }}">Link</a></td>
+                  <td>
+                    <form method="post" class="update-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                        <input type="hidden" name="form_type" value="update">
+                        <label for="read_{{ item.id }}"></label>
+                        <input type="checkbox" id="read_{{ item.id }}" name="read" {% if item.read %}checked{% endif %} onchange="this.form.submit()">
+                    </form>
+                  </td>
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="form_type" value="clear">
+    <input type="submit" value="Clear all read items">
+  </form>
+  <style>
+      .read {
+          text-decoration: line-through;
+      }
+  </style>
+</body>
+</html>

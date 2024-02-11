@@ -22,3 +22,6 @@ def reading_material_view(request):
 
     reading_list = readingMaterial.objects.all()
     return render(request, 'readingList.html', {'form': form, 'reading_list': reading_list})
+
+def pomodoro_timer(request):
+    return render(request, 'timer.html')

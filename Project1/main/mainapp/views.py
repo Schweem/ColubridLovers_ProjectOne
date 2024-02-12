@@ -2,6 +2,10 @@
 from .models import readingMaterial
 from .forms import ReadingMaterialForm
 from django.shortcuts import render
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("Hello, Django!")
 
 def reading_material_view(request):
     form = ReadingMaterialForm()

@@ -10,9 +10,13 @@ from .models import Event
 class TodoListForm(forms.ModelForm):
     title = forms.CharField(label='Title', max_length=100)
     description = forms.Textarea()
-    class Meta:
+    #todo by should allow the user to select a date and time
+    # Got help from here https://stackoverflow.com/questions/72627164/django-datetime-typeerror-fromisoformat-argument-must-be-str
+    date = forms.DateField(widget=SelectDateWidget())
+    time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
+    class Meta:                                                                     # and here https://docs.djangoproject.com/en/3.0/ref/forms/widgets/#selectdatewidget
         model = TodoList
-        fields = ['title', 'description']
+        fields = ['title', 'description', 'date', 'time']
 
 class EventForm(forms.ModelForm):
     name = forms.CharField(label='Name', max_length=100) # https://docs.djangoproject.com/en/5.0/ref/forms/widgets/

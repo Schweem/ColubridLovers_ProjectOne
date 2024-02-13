@@ -6,9 +6,16 @@ from .forms import EventForm
 from .models import TodoList
 from .models import Event
 from datetime import date, timedelta
+from django.shortcuts import render
+from datetime import date, timedelta
+from .models import Event
+from calendar import monthcalendar
+from datetime import timedelta
+
 
 # I got a lot of help from here 
 #https://www.w3schools.com/django
+#and a lot of help from copilot
 
 
 
@@ -38,15 +45,6 @@ def mark_todo_completed(request, todo_id):
     todo.save()
     return redirect('todo_list')
 
-from django.shortcuts import render
-from datetime import date, timedelta
-from .models import Event
-
-
-from calendar import monthcalendar
-
-from calendar import monthcalendar
-from datetime import timedelta
 
 def calendar(request, period): # Written in large part by copilot
     today = date.today()

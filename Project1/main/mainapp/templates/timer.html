@@ -2,8 +2,6 @@
 {% load static %}
 {% block title %}Pomodoro Timer{% endblock %}
 {% block content %}
-<!-- Content specific to the Pomodoro Timer page -->
-<link rel="stylesheet" href="{% static 'css/timer_style.css' %}">
 
 <div class="centered-container">
     <div class="timer-container">
@@ -21,5 +19,6 @@
     </div>
 </div>
 
+<link rel="stylesheet" href="{% static 'css/timer_style.css' %}">
 <script src="{% static 'js/timer_script.js' %}"></script>
 {% endblock %}

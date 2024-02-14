@@ -29,3 +29,6 @@ def reading_material_view(request):
 
 def pomodoro_timer(request):
     return render(request, 'timer.html')
+
+def draw_view(request):
+    return render(request, 'draw.html')

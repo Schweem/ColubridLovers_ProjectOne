@@ -1,12 +1,10 @@
 from django.db import models
 
-# Create your models here.
-class readingMaterial(models.Model):
+#todo list model
+class Event(models.Model): 
     title = models.CharField(max_length=100)
-    author = models.CharField(max_length=100)
-    type = models.CharField(max_length=100)
-    link = models.URLField()
-    read = models.BooleanField(default=False)
-    
-    def __str__(self):
-        return self.title
+    description = models.TextField()
+    completed = models.BooleanField(default=False)
+    date = models.DateField()
+    time = models.TimeField()
+    created_at = models.DateTimeField(auto_now_add=True)

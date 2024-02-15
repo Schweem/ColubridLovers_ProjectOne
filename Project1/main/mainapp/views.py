@@ -48,6 +48,7 @@ def reading_material_view(request):
             form = ReadingMaterialForm(request.POST)
             if form.is_valid():
                 form.save()
+            else:
                 form = ReadingMaterialForm()
         elif form_type == 'update':
             item_id = request.POST.get('item_id')

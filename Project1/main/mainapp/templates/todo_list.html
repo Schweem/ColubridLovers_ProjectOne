@@ -1,12 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Reading List{% endblock %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <!-- This is just a placeholder for now-->
 <html>
 <head>
     <title>Todo List</title>
     <!-- Link to the Bootstrap CSS for styling -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'bootstrap_yeti.css' %}">
     <style>
-        /* Your styles here */
         .add-event-button {
             position: absolute;
             top: 10px;
@@ -100,3 +106,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+{% endblock %}

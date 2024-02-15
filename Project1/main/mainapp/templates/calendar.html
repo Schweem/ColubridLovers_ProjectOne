@@ -1,3 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Reading List{% endblock %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <!-- Written in large part by copilot -->
 <html>
@@ -17,7 +24,7 @@
             text-align: center;
         }
         th {
-            background-color: #4CAF50;
+            background-color: #5bc0de;
             color: white;
         }
         .event {
@@ -60,7 +67,6 @@
     </style>
 </head>
 <body>
-    <h2>Calendar</h2>
 <table>
     <tr>
         <th>Monday</th>
@@ -109,3 +115,5 @@
     </script>
 </body>
 </html>
+
+{% endblock %}

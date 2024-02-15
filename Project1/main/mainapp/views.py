@@ -9,16 +9,11 @@ from datetime import date, timedelta
 from calendar import monthcalendar
 from datetime import timedelta
 
-
 # I got a lot of help from here 
 #https://www.w3schools.com/django
 #and a lot of help from copilot
 
-
-
-
 #todo list view
-
 def todo_list(request): # copilot
     if request.method == 'POST':
         form = EventForm(request.POST)
@@ -43,7 +38,7 @@ def mark_todo_completed(request, todo_id):
     return redirect('todo_list')
   
 def home(request):
-    return HttpResponse("Hello, Django!")
+    return calendar(request, 'month')
 
 def reading_material_view(request):
     form = ReadingMaterialForm()

@@ -1,8 +1,8 @@
 from calendar import monthrange
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import EventForm
-from .forms import EventForm
-from .models import Event
+from django.http import HttpResponse
+from .forms import EventForm, ReadingMaterialForm, ReadingMaterialForm
+from .models import Event, readingMaterial
 from datetime import date, timedelta
 from django.shortcuts import render
 from datetime import date, timedelta
@@ -41,6 +41,35 @@ def mark_todo_completed(request, todo_id):
     todo.completed = True
     todo.save()
     return redirect('todo_list')
+  
+def home(request):
+    return HttpResponse("Hello, Django!")
+
+def reading_material_view(request):
+    form = ReadingMaterialForm()
+    if request.method == 'POST':
+        form_type = request.POST.get('form_type')
+        if form_type == 'add':
+            form = ReadingMaterialForm(request.POST)
+            if form.is_valid():
+                form.save()
+                form = ReadingMaterialForm()
+        elif form_type == 'update':
+            item_id = request.POST.get('item_id')
+            item = readingMaterial.objects.get(id=item_id)
+            item.read = 'read' in request.POST
+            item.save()
+        elif form_type == 'clear':
+            readingMaterial.objects.filter(read=True).delete()
+
+    reading_list = readingMaterial.objects.all()
+    return render(request, 'readingList.html', {'form': form, 'reading_list': reading_list})
+
+def pomodoro_timer(request):
+    return render(request, 'timer.html')
+
+def draw_view(request):
+    return render(request, 'draw.html')
 
 
 def calendar(request, period): # Written in large part by copilot

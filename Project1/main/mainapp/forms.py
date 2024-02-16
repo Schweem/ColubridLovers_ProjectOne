@@ -20,4 +20,3 @@ class EventForm(forms.ModelForm):
     class Meta:                                                                     # and here https://docs.djangoproject.com/en/3.0/ref/forms/widgets/#selectdatewidget
         model = Event
         fields = ['title', 'description', 'date', 'time']
-

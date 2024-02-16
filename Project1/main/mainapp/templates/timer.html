@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Pomodoro Timer{% endblock %}
+{% block content %}
+
+<div class="centered-container">
+    <div class="timer-container">
+        <div id="timer-display">25:00</div>
+        <div class="buttons">
+            <button id="start-button">Start</button>
+            <button id="stop-button">Stop</button>
+            <button id="reset-button">Reset</button>
+        </div>
+        <div class="settings">
+            <button id="pomodoro">Pomodoro</button>
+            <button id="short-break">Short Break</button>
+            <button id="long-break">Long Break</button>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="{% static 'css/timer_style.css' %}">
+<script src="{% static 'js/timer_script.js' %}"></script>
+{% endblock %}

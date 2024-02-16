@@ -5,6 +5,9 @@ from .models import Event, readingMaterial
 # I got a lot of use from this https://docs.djangoproject.com/en/5.0/ref/forms/widgets/
 #https://www.geeksforgeeks.org/django-form-field-custom-widgets/
 #https://cdf.9vo.lt/3.0/django.forms.widgets/SelectDateWidget.html
+#https://stackoverflow.com/questions/60389224/datetimeinput-is-being-rendered-as-simple-text-input-in-django
+#https://www.geeksforgeeks.org/python-todo-webapp-using-django/
+#https://stackoverflow.com/questions/15454008/how-to-reset-db-in-django-i-get-a-command-reset-not-found-error
 
 #written in large part by copilot
 class EventForm(forms.ModelForm):

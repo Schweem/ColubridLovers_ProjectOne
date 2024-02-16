@@ -41,3 +41,27 @@ class readingMaterial(models.Model):
 
     def __str__(self):
         return self.title
+    
+class classList(models.Model):
+    """
+    Represents a class.
+
+    Attributes:
+        title (str): The title of the class.
+        description (str): The description of the class.
+        attributes (str): The attributes of the class. Theory, applications, ect
+        current (bool): Indicates whether the class is currently being taken or not.
+        completed (bool): Indicates whether the class is completed or not.
+        time (datetime.time): The time of the class.
+        date (str): The dates of the class, Aka monday, wednesday, friday
+    """
+    title = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
+    attributes = models.CharField(max_length=100)
+    completed = models.BooleanField(default=False)
+    currently_taking = models.BooleanField(default=False)
+    time = models.TimeField(null=True, blank=True)
+    date = models.CharField(max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return self.title

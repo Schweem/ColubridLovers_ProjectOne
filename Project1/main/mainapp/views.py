@@ -1,8 +1,8 @@
 from calendar import monthrange
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
-from .forms import EventForm, ReadingMaterialForm, ReadingMaterialForm
-from .models import Event, readingMaterial
+from .forms import EventForm, ReadingMaterialForm, ReadingMaterialForm, classListForm
+from .models import Event, readingMaterial, classList
 from datetime import date, timedelta
 from django.shortcuts import render
 from datetime import date, timedelta
@@ -108,3 +108,28 @@ def calendar(request, period): # Written in large part by copilot
         weeks.append(week_days)
 
     return render(request, 'calendar.html', {'weeks': weeks, 'form': form})
+
+
+
+
+# Class List view
+def class_list_view(request): #copilot
+    if(request.method == 'POST'):
+        form = classListForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('class_list')
+    else:
+        form = classListForm()
+    
+    current_classes = classList.objects.filter(currently_taking=True, completed=False)
+    completed_classes = classList.objects.filter(completed=True, currently_taking = False)
+    future_classes = classList.objects.filter(currently_taking=False, completed=False)
+    
+    return render(request, 'class_list.html', {'current_classes': current_classes, 'completed_classes': completed_classes, 'future_classes': future_classes, 'form': form})
+
+
+def delete_class(request, class_id): #copilot
+    class_to_delete = get_object_or_404(classList, id=class_id)
+    class_to_delete.delete()
+    return redirect('class_list')

@@ -1,3 +1,15 @@
+/**
+ * Docs powered by CoPilot 
+ * 
+ * This CSS file contains styles for a drawing application.
+ * It imports the Google font "Poppins" and sets global styles for the body.
+ * The drawing space is a flex container that centers its content vertically and horizontally.
+ * The container is a flex container that holds the drawing tools and the drawing board.
+ * The tools board is a sidebar that contains various drawing options.
+ * The colors section contains a list of color options for the drawing tool.
+ * The buttons section contains buttons for clearing the canvas and saving the drawing.
+ * The drawing board is a flex item that holds the canvas element for drawing.
+ */
 /* Import Google font - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 *{
@@ -7,18 +19,22 @@
   font-family: 'Poppins', sans-serif;
 }
 body{
+  background: #f8f8f8;
+}
+
+.drawing-space {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #4A98F7;
 }
+
 .container{
   display: flex;
   width: 100%;
   gap: 10px;
   padding: 10px;
-  max-width: 1050px;
+  max-width: 1300px;
 }
 section{
   background: #fff;

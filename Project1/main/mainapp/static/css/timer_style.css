@@ -1,6 +1,13 @@
+/**
+ * Docs powered by CoPilot
+ * 
+ * This CSS file contains styles for a timer application.
+ * It defines the font family, background color, and layout for the timer display.
+ * It also sets styles for buttons and settings.
+ */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #f8f8f8;
 }
 
 .centered-container {

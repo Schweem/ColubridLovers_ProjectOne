@@ -25,7 +25,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for item in reading_list %}
+            {% for item in reading_list %} <!--The reading list needs to match what is put in the view exactly-->
             <tr class="{% if item.read %}table-secondary{% else %}table-light{% endif %}">
                 <td>{{ item.title }}</td>
                 <td>{{ item.author }}</td>
@@ -46,7 +46,7 @@
             {% endfor %}
         </tbody>
     </table>
-    <form method="post" class="mb-4">
+    <form method="POST" class="mb-4">
         {% csrf_token %}
         <input type="hidden" name="form_type" value="clear">
         <button type="submit" class="btn btn-warning">Clear all read items</button>

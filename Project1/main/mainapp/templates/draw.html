@@ -1,14 +1,9 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Drawing App JavaScript</title>
-    <link rel="stylesheet" href="{% static 'css/draw.css' %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="{% static 'js/draw.js' %}" defer></script>
-  </head>
-  <body>
+
+{% block title %}Doodle Space{% endblock %}
+
+{% block content %}
     <div class="container">
       <section class="tools-board">
         <div class="row">
@@ -72,3 +67,9 @@
     
   </body>
 </html>
+
+{% load static %}
+<script src="{% static 'js/draw.js' %}" defer></script>
+<link rel="stylesheet" href="{% static 'css/draw.css' %}">
+
+{% endblock %}

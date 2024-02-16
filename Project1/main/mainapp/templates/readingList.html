@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Reading List{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Add Reading Material</h2>
+    <form method="post" class="my-3">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <link rel="stylesheet" href="{% static 'bootstrap_yeti.css' %}">
+        <input type="hidden" name="form_type" value="add">
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>  
+    <h2>Reading List</h2>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Type</th>
+                <th>Link</th>
+                <th>Mark Read</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in reading_list %} <!--The reading list needs to match what is put in the view exactly-->
+            <tr class="{% if item.read %}table-secondary{% else %}table-light{% endif %}">
+                <td>{{ item.title }}</td>
+                <td>{{ item.author }}</td>
+                <td>{{ item.type }}</td>
+                <td><a href="{{ item.link }}" class="btn btn-link">Link</a></td>
+                <td>
+                    <form method="post" class="update-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                        <input type="hidden" name="form_type" value="update">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="read_{{ item.id }}" name="read" {% if item.read %}checked{% endif %} onchange="this.form.submit()">
+                            <label class="form-check-label" for="read_{{ item.id }}"></label>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <form method="POST" class="mb-4">
+        {% csrf_token %}
+        <input type="hidden" name="form_type" value="clear">
+        <button type="submit" class="btn btn-warning">Clear all read items</button>
+    </form>
+</div>
+
+{% load static %}
+
+{% endblock %}

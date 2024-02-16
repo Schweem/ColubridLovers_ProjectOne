@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Reading List{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<!-- Written in large part by copilot -->
+<html>
+<head>
+    <title>Calendar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            margin: auto;
+            width: 95%;
+            border-collapse: separate;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #5bc0de;
+            color: white;
+        }
+        .event {
+            background-color: #f2f2f2;
+            margin-bottom: 5px;  /* Reduce margin */
+            padding: 5px;  /* Reduce padding */
+            font-size: 0.8em;  /* Reduce font size */
+            border: 1px solid #ddd;
+        }
+        .event {
+            border: 1px solid #ddd;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        .add-event-button {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background-color: #5bc0de;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+                border-radius: 12%;
+            
+        }
+    
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: white;
+            display: none;  /* Hide the popup by default */
+        }
+    
+        .popup.active {
+            display: block;  /* Show the popup when it has the "active" class */
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+        <th>Sunday</th>
+    </tr>
+    {% for week in weeks %}
+    <tr>
+        {% for day in week %}
+        <td>
+            <div class="day">
+                <h3>{{ day.day }}</h3>
+                {% for event in day.events %}
+                <div class="event">
+                    <h3>{{ event.name }}</h3>
+                    <p>{{ event.description }}</p>
+                    <p>Time: {{ event.time }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+    </style>
+    <button class="add-event-button" onclick="togglePopup()">Add Event</button> <!-- copilot is great for everything except for fixing its own mistakes-->
+    <!-- Add event popup made by copilot--> 
+    <div id="addEventPopup" class="popup">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Add</button>
+            <button type = "close" onclick="togglePopup()">Close</button>
+        </form>
+    </div>
+    <script>
+        function togglePopup() {
+            var popup = document.getElementById("addEventPopup");
+            popup.classList.toggle("active");
+        }
+    </script>
+</body>
+</html>
+
+{% endblock %}

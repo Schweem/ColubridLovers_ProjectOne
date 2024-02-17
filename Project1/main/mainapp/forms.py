@@ -24,11 +24,12 @@ class EventForm(forms.ModelForm):
     description = forms.Textarea()
     #todo by should allow the user to select a date and time
     # Got help from here https://stackoverflow.com/questions/72627164/django-datetime-typeerror-fromisoformat-argument-must-be-str
+    url = forms.URLField(label='URL', required=False)
     date = forms.DateField(widget=SelectDateWidget())
     time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
     class Meta:                                                                     # and here https://docs.djangoproject.com/en/3.0/ref/forms/widgets/#selectdatewidget
         model = Event
-        fields = ['title', 'description', 'date', 'time']
+        fields = ['title', 'description','url', 'date', 'time']
 
 class ReadingMaterialForm(forms.ModelForm):
     """

@@ -19,6 +19,8 @@ class Event(models.Model):
     completed = models.BooleanField(default=False)
     date = models.DateField()
     time = models.TimeField()
+    #url
+    url = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 class readingMaterial(models.Model):

@@ -90,7 +90,14 @@ def calendar(request, period): # Written in large part by copilot
     elif period == 'day':
         # Create a calendar for the current day
         cal = [[today.day]]
-
+    #calendar for a semester ahead 6 months
+    elif period == 'semester':
+        cal = monthcalendar(today.year, today.month)
+        for i in range(5):
+            today = today + timedelta(days=30)
+            cal += monthcalendar(today.year, today.month)
+    else:
+        return HttpResponse('Invalid period')
     # Create the weeks list
     weeks = []
     for week in cal:
@@ -133,3 +140,6 @@ def delete_class(request, class_id): #copilot
     class_to_delete = get_object_or_404(classList, id=class_id)
     class_to_delete.delete()
     return redirect('class_list')
+
+def hours(request):
+    return render(request, 'hours.html')

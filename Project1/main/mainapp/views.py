@@ -1,6 +1,8 @@
 from calendar import monthrange
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
+from django.utils import timezone
+from django.db.models import Q
 from .forms import EventForm, ReadingMaterialForm, ReadingMaterialForm, classListForm
 from .models import Event, readingMaterial, classList
 from datetime import date, timedelta
@@ -8,6 +10,7 @@ from django.shortcuts import render
 from datetime import date, timedelta
 from calendar import monthcalendar
 from datetime import timedelta
+
 
 # I got a lot of help from here 
 #https://www.w3schools.com/django
@@ -22,7 +25,14 @@ def todo_list(request): # copilot
             return redirect('todo_list')
     else:
         form = EventForm()
-    todos = Event.objects.all()
+    # Get the current date and time
+    now = timezone.now()
+
+    # Filter the todos to only include (uncompleted events and events in the past) or (completed events and events in the future)
+    todos = Event.objects.filter(
+        Q(completed=False, date__lte=now.date()) | 
+        Q(date__gte=now.date())
+    ).order_by('date', 'time')
     return render(request, 'todo_list.html', {'todos': todos, 'form': form})
 
 def delete_todo(request, todo_id): #copilot wrote this mostly
@@ -36,6 +46,10 @@ def mark_todo_completed(request, todo_id):
     todo.completed = True
     todo.save()
     return redirect('todo_list')
+
+def event_detail(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+    return render(request, 'event_detail.html', {'event': event})
   
 def home(request):
     return calendar(request, 'month')

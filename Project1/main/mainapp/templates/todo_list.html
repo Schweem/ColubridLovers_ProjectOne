@@ -54,6 +54,21 @@
             background-color: #5bc0de;
             color: white;
         }
+        .completed {
+            position: relative;
+          }
+          
+          .completed::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            border-top: 4px solid black;
+          }
+
+
+        
     </style>
 </head>
 <body>
@@ -73,8 +88,8 @@
             </thead>
             <tbody>
                 {% for todo in todos %}
-                    <tr>
-                        <!-- Display the title, description, and completion status of the current todo item -->
+                    <tr class="{{ todo.completed|yesno:'completed,' }}">
+                    <!-- Display the title, description, and completion status of the current todo item -->
                         <td>{{ todo.title }}</td>
                         <td>{{ todo.description }}</td>
                         <td>{{ todo.completed }}</td>
@@ -85,12 +100,12 @@
                             <form method="post" action="{% url 'mark_todo_completed' todo.id %}">
                                 {% csrf_token %}
                                 <input type="hidden" name="completed" value="True">
-                                <button type="submit">Mark as complete</button>
+                                <button type="submit" class="btn btn-primary">Mark as complete</button>
                             </form>
                             <!-- Form to delete the current todo item -->
                             <form method="post" action="{% url 'delete_todo' todo.id %}">
                                 {% csrf_token %}
-                                <button type="submit">Delete</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </td>
                     </tr>

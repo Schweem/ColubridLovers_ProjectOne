@@ -34,12 +34,23 @@
             padding: 5px;  /* Reduce padding */
             font-size: 0.8em;  /* Reduce font size */
             border: 1px solid #ddd;
+            color: black;
+            text-decoration: none;
         }
-        .event {
-            border: 1px solid #ddd;
-            padding: 8px;
-            margin-bottom: 10px;
+
+        .event:hover{
+            background-color: #ddd;
         }
+
+        .event a, .event a:link, .event a:visited {
+            text-decoration: none;  /* Remove the underline from the link */
+            color: inherit;  /* Make the link text inherit the color of its parent element */
+        }
+        
+        .event a:hover, .event a:active {
+            color: blue;  /* Change the color of the link text when the mouse hovers over it */
+        }
+
         .add-event-button {
             position: absolute;
             top: 5px;
@@ -67,6 +78,9 @@
         .popup.active {
             display: block;  /* Show the popup when it has the "active" class */
         }
+        .completed {
+            text-decoration: line-through;
+        }
     </style>
 </head>
 <body>
@@ -87,12 +101,12 @@
             <div class="day">
                 <h3>{{ day.day }}</h3>
                 {% for event in day.events %}
-                <div class="event">
-                    <h3>{{ event.title }}</h3>
-                    <p>{{ event.description }}</p>
-                    <p>url: {{ event.url }}</p>
-                    <p>Time: {{ event.time }}</p>
-                </div>
+                <a href="{% url 'event_detail' event.id %}" style="text-decoration: none; color: inherit;">
+                    <div class="event {% if event.completed %}completed{% endif %}" style="cursor: pointer;">
+                        <h3>{{ event.title }}</h3>             
+                        <p>Time: {{ event.time }}</p>
+                    </div>
+                </a>
                 {% endfor %}
             </div>
         </td>

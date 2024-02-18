@@ -78,50 +78,71 @@
         .completed {
             text-decoration: line-through;
         }
+        .month-header {
+            background-color: #4CAF50; /* Change the color as needed */
+            color: white;
+            font-size: 1.2em;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 20px;
+            width: 100%;
+            display: block;
+        }
     </style>
 </head>
 
 <body>
-    <div class="container my-4 mb-1 mt-1">
-        <div class="btn-group d-flex justify-content-center" role="group" aria-label="Calendar views">
+    <div>
+        {% for month, weeks in months_with_weeks.items %}
+        <div class="month-header">{{ month }}</div>
+  
+        <div class="container my-4 mb-1 mt-1">
+          <div class="btn-group d-flex justify-content-center" role="group" aria-label="Calendar views">
             <a href="{% url 'todo_list' %}" class="btn btn-secondary rounded-pill mx-1">Day</a>
             <a href="{% url 'calendar' 'week' %}" class="btn btn-secondary rounded-pill mx-1">Week</a>
             <a href="{% url 'calendar' 'month' %}" class="btn btn-secondary rounded-pill mx-1">Month</a>
             <a href="{% url 'calendar' 'month' %}" class="btn btn-secondary rounded-pill mx-1">Semester</a>
+          </div>
         </div>
-    </div>
-    
-    <table>
-        <tr>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
-            <th>Saturday</th>
-            <th>Sunday</th>
-        </tr>
-        {% for week in weeks %}
-        <tr>
-            {% for day in week %}
-            <td onclick="togglePopup('{{ day.date }}');">
-                <div class="day">
-                    <h3>{{ day.day }}</h3>
-                    {% for event in day.events %}
-                    <a href="{% url 'event_detail' event.id %}" style="text-decoration: none; color: inherit;">
-                        <div class="event {% if event.completed %}completed{% endif %}" style="cursor: pointer;">
-                            <h3>{{ event.title }}</h3>             
-                            <p>Time: {{ event.time }}</p>
-                        </div>
-                    </a>
-                    {% endfor %}
-                </div>
-            </td>
+  
+        <table>
+            <tr>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+                <th>Sunday</th>
+            </tr>
+            {% for week in weeks %}
+            <tr>
+                {% for day in week %}
+                <td>
+                    {% if day %}
+                    <div class="day">
+                        <h3>{{ day.day }}</h3>
+                        {% for event in day.events %}
+                        <a href="{% url 'event_detail' event.id %}" style="text-decoration: none; color: inherit;">
+                            <div class="event {% if event.completed %}completed{% endif %}" style="cursor: pointer;">
+                                <h3>{{ event.title }}</h3>             
+                                <p>Time: {{ event.time }}</p>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <!-- Optionally display something for empty cells or just leave it blank -->
+                    {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
             {% endfor %}
-        </tr>
+        </table>
         {% endfor %}
-    </table>
-    
+
+    </div>
+    </style>
     <button class="btn btn-primary position-fixed bottom-0 end-0 m-3 shadow" onclick="togglePopup()" style="font-size: 38px; width: 70px; height: 70px; border-radius: 70%;">+</button>
     <!-- Add event popup made by copilot--> 
     <div id="addEventPopup" class="popup">

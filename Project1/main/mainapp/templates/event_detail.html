@@ -33,6 +33,7 @@
         {% if event.url %}
         <p><a href="{{ event.url }}">Link</a></p>
         {% endif %}
+        <p>Date: {{ event.date }}</p>
         <p>Time: {{ event.time }}</p>
         <form method="post" action="{% url 'mark_todo_completed' event.id %}">
             {% csrf_token %}

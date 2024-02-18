@@ -78,39 +78,59 @@
         .completed {
             text-decoration: line-through;
         }
+        .month-header {
+            background-color: #4CAF50; /* Change the color as needed */
+            color: white;
+            font-size: 1.2em;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 20px;
+            width: 100%;
+            display: block;
+        }
     </style>
 </head>
 <body>
-<table>
-    <tr>
-        <th>Monday</th>
-        <th>Tuesday</th>
-        <th>Wednesday</th>
-        <th>Thursday</th>
-        <th>Friday</th>
-        <th>Saturday</th>
-        <th>Sunday</th>
-    </tr>
-    {% for week in weeks %}
-    <tr>
-        {% for day in week %}
-        <td>
-            <div class="day">
-                <h3>{{ day.day }}</h3>
-                {% for event in day.events %}
-                <a href="{% url 'event_detail' event.id %}" style="text-decoration: none; color: inherit;">
-                    <div class="event {% if event.completed %}completed{% endif %}" style="cursor: pointer;">
-                        <h3>{{ event.title }}</h3>             
-                        <p>Time: {{ event.time }}</p>
+    <div>
+        {% for month, weeks in months_with_weeks.items %}
+        <div class="month-header">{{ month }}</div>
+        <table>
+            <tr>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+                <th>Sunday</th>
+            </tr>
+            {% for week in weeks %}
+            <tr>
+                {% for day in week %}
+                <td>
+                    {% if day %}
+                    <div class="day">
+                        <h3>{{ day.day }}</h3>
+                        {% for event in day.events %}
+                        <a href="{% url 'event_detail' event.id %}" style="text-decoration: none; color: inherit;">
+                            <div class="event {% if event.completed %}completed{% endif %}" style="cursor: pointer;">
+                                <h3>{{ event.title }}</h3>             
+                                <p>Time: {{ event.time }}</p>
+                            </div>
+                        </a>
+                        {% endfor %}
                     </div>
-                </a>
+                    {% else %}
+                    <!-- Optionally display something for empty cells or just leave it blank -->
+                    {% endif %}
+                </td>
                 {% endfor %}
-            </div>
-        </td>
+            </tr>
+            {% endfor %}
+        </table>
         {% endfor %}
-    </tr>
-    {% endfor %}
-</table>
+
+    </div>
     </style>
     <button class="add-event-button" onclick="togglePopup()">Add Event</button> <!-- copilot is great for everything except for fixing its own mistakes-->
     <!-- Add event popup made by copilot--> 

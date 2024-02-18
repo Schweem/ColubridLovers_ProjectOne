@@ -8,8 +8,9 @@ from .models import Event, readingMaterial, classList
 from datetime import date, timedelta
 from django.shortcuts import render
 from datetime import date, timedelta
-from calendar import monthcalendar
+from calendar import monthcalendar, monthrange
 from datetime import timedelta
+import calendar
 
 
 # I got a lot of help from here 
@@ -82,56 +83,68 @@ def draw_view(request):
     return render(request, 'draw.html')
 
 
-def calendar(request, period): # Written in large part by copilot
+
+def add_months(source_date, months):
+    month = source_date.month - 1 + months
+    year = source_date.year + month // 12
+    month = month % 12 + 1
+    return date(year, month, 1)
+
+
+
+
+
+def calendar_view(request, period):
     today = date.today()
 
-    if(request.method == 'POST'):
+    if request.method == 'POST':
         form = EventForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('calendar', period=period)
+            return redirect('calendar', period=period)  # Adjust the redirect as needed
     else:
         form = EventForm()
 
-    if period == 'month':
-        # Create a calendar for the current month
-        cal = monthcalendar(today.year, today.month)
-    elif period == 'week':
-        # Create a calendar for the current week
-        start_week = today - timedelta(days=today.weekday())  # Monday
-        end_week = start_week + timedelta(days=6)  # Sunday
-        cal = [list(range(start_week.day, end_week.day + 1))]
-    elif period == 'day':
-        # Create a calendar for the current day
-        cal = [[today.day]]
-    #calendar for a semester ahead 6 months
-    elif period == 'semester':
-        cal = monthcalendar(today.year, today.month)
-        for i in range(5):
-            today = today + timedelta(days=30)
-            cal += monthcalendar(today.year, today.month)
-    else:
-        return HttpResponse('Invalid period')
-    # Create the weeks list
-    weeks = []
-    for week in cal:
-        week_days = []
-        for day in week:
-            if day == 0:  # day outside of the month
-                week_days.append(None)
-            else:
-                # Fetch events from your database here
-                events = Event.objects.filter(date=date(today.year, today.month, day))
-                week_days.append({
-                    'day': day,
-                    'events': events
-                })
-        weeks.append(week_days)
+    months_with_weeks = {}
+    # if the persiod is a wee
+    if period == 'week':
+        start_week = today - timedelta(days=today.weekday()) # Get the first day of the week
+        week_name = f"Week of {start_week.strftime('%B %d, %Y')}" # Generate the week's name
+        week_days = []  # This will hold the days of the week
+        for i in range(7): # Generate the data for each day in the week
+            day_date = start_week + timedelta(days=i)   # Get the date of the day
+            events = Event.objects.filter(date=day_date) # Get the events for the day
+            # Append each day's data directly into the week_days list
+            week_days.append({'day': day_date.day, 'events': events}) 
+        # Now, week_days is a single list representing one week, as expected by the template
+        months_with_weeks[week_name] = [week_days]  # Wrap week_days in a list to match the expected structure
 
-    return render(request, 'calendar.html', {'weeks': weeks, 'form': form})
+    # Handle month and semester views
+    elif period in ['month', 'semester']:
+        months_to_generate = 1 if period == 'month' else 6
+        start_month = today.replace(day=1)
+        # Generate the data for each month
+        for i in range(months_to_generate):
+            month_date = add_months(start_month, i)
+            month_name = calendar.month_name[month_date.month] + " " + str(month_date.year)
+            month_days = monthcalendar(month_date.year, month_date.month)
+            weeks = []
+            # Move on to each individual week
+            for week in month_days:
+                week_days = []
+                # Move on to each day in the week
+                for day in week:
+                    if day != 0: # If it's a day in the current month
+                        day_date = date(month_date.year, month_date.month, day)
+                        events = Event.objects.filter(date=day_date)
+                        day_info = {'day': day, 'events': events}
+                    else:
+                        day_info = None
+                    week_days.append(day_info) # Append the day's data to the week
+                weeks.append(week_days)
+            months_with_weeks[month_name] = weeks
 
-
-
+    return render(request, 'calendar.html', {'months_with_weeks': months_with_weeks, 'form': form})
 
 # Class List view
 def class_list_view(request): #copilot

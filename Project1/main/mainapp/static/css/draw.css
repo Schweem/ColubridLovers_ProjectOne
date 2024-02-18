@@ -10,13 +10,14 @@
  * The buttons section contains buttons for clearing the canvas and saving the drawing.
  * The drawing board is a flex item that holds the canvas element for drawing.
  */
-/* Import Google font - Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+ /*
+  *THIS * TAG NEEDS TO BE HERE. I DELETED IT AND IT KEPT STYLING THE NAVBAR WITH POPPINS FONT
+  */
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 body{
   background: #f8f8f8;
@@ -28,6 +29,7 @@ body{
   justify-content: center;
   min-height: 100vh;
 }
+
 
 .container{
   display: flex;
@@ -133,7 +135,6 @@ section{
   border: none;
   outline: none;
   padding: 11px 0;
-  font-size: 0.9rem;
   margin-bottom: 13px;
   background: none;
   border-radius: 4px;

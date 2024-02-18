@@ -8,11 +8,14 @@
     <h2>Add Reading Material</h2>
     <form method="post" class="my-3">
         {% csrf_token %}
-        {{ form.as_p }}
-        <link rel="stylesheet" href="{% static 'bootstrap_yeti.css' %}">
+        <!-- Custom fields because the vanilla ones are a little stale -->
+        <input type="text" name="title" class="form-control rounded" placeholder="Title" required>
+        <input type="text" name="author" class="form-control rounded mt-2" placeholder="Author" required>
+        <input type="text" name="type" class="form-control rounded mt-2" placeholder="Type" required>
+        <input type="text" name="link" class="form-control rounded mt-2" placeholder="Link" required>
         <input type="hidden" name="form_type" value="add">
-        <button type="submit" class="btn btn-primary">Add</button>
-    </form>  
+        <button type="submit" class="btn btn-primary rounded-pill mb-4 mt-4">Add Item</button>
+    </form> 
     <h2>Reading List</h2>
     <table class="table">
         <thead class="thead-dark">
@@ -49,7 +52,7 @@
     <form method="POST" class="mb-4">
         {% csrf_token %}
         <input type="hidden" name="form_type" value="clear">
-        <button type="submit" class="btn btn-warning">Clear all read items</button>
+        <button type="submit" class="btn btn-outline-info rounded-pill shadow mt-4">Clear all read items</button>
     </form>
 </div>
 

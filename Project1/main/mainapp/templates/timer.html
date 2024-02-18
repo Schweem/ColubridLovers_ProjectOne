@@ -1,3 +1,6 @@
+<!--https://getbootstrap.com/docs/4.0/layout/utilities-for-layout/-->
+<!--https://getbootstrap.com/docs/4.0/components/buttons/-->
+
 {% extends 'base.html' %}
 {% load static %}
 
@@ -5,23 +8,35 @@
 
 {% block content %}
 
-<div class="centered-container">
-    <div class="timer-container">
-        <div id="timer-display">25:00</div>
-        <div class="buttons">
-            <button id="start-button">Start</button>
-            <button id="stop-button">Stop</button>
-            <button id="reset-button">Reset</button>
+<div class="container-fluid vh-70 d-flex flex-column align-items-center justify-content-center text-center bg-white text-dark mb-1">
+    <!-- Cute cat! -->
+    <img src="{% static 'images/timerCat.jpg' %}" alt="Timer Cat" class="img-fluid mb-1" />
+
+    <!-- Content Wrapper -->
+    <div>
+        <div class="mb-4">
+            <h5>Let's get to work!</h5>
         </div>
-        <div class="settings">
-            <button id="pomodoro">Pomodoro</button>
-            <button id="short-break">Short Break</button>
-            <button id="long-break">Long Break</button>
+
+        <!-- Timer Mode Buttons -->
+        <div class="btn-group mb-3" role="group" aria-label="Timer modes">
+            <button type="button" class="btn btn-info rounded-pill mx-1 id="short-break">Short Break</button>
+            <button type="button" class="btn btn-lg btn-info rounded-pill mx-3" id="pomodoro">Pomodoro</button>
+            <button type="button" class="btn btn-info rounded-pill mx-1" id="long-break">Long Break</button>
+        </div>
+
+        <!-- Timer Display -->
+        <div class="display-1 mb-2" id="timer-display">25:00</div>
+
+        <!-- Timer Control Buttons -->
+        <div class="btn-group mb-3" role="group" aria-label="Timer controls">
+            <button class="btn btn-outline-primary btn shadow rounded-pill mx-2" id="stop-button">Stop</button>
+            <button class="btn btn-outline-primary btn-lg shadow rounded-pill mx-2" id="start-button">Start</button>
+            <button class="btn btn-outline-primary btn shadow rounded-pill mx-2" id="reset-button">Reset</button>
         </div>
     </div>
 </div>
 
-<link rel="stylesheet" href="{% static 'css/timer_style.css' %}">
 <script src="{% static 'js/timer_script.js' %}"></script>
 
 {% endblock %}

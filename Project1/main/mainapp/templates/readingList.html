@@ -4,7 +4,58 @@
 {% block title %}Reading List{% endblock %}
 
 {% block content %}
+<style>
+    .add-button {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        background-color: #5bc0de;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+            border-radius: 12%;
+        
+    }
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        border: 1px solid #ddd;
+        background-color: white;
+        display: none;  /* Hide the popup by default */
+    }
+
+    .popup.active {
+        display: block;  /* Show the popup when it has the "active" class */
+    }
+    .read-item {
+        position: relative;
+    }
+
+    .read-item::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        border-top: 4px solid black;
+    }
+    td {
+        text-align: left;
+        vertical-align: middle;
+    }
+    .update-form {
+        display: flex;
+        vertical-align: middle;
+        height: 100%;
+    }
+</style>
 <div class="container mt-4">
+    <h2>Reading <a href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" style="color: transparent;">l</a>List</h2>
+
     <h2>Add Reading Material</h2>
     <form method="post" class="my-3">
         {% csrf_token %}
@@ -29,7 +80,7 @@
         </thead>
         <tbody>
             {% for item in reading_list %} <!--The reading list needs to match what is put in the view exactly-->
-            <tr class="{% if item.read %}table-secondary{% else %}table-light{% endif %}">
+            <tr class="{% if item.read %}table-secondary read-item{% else %}table-light{% endif %}">
                 <td>{{ item.title }}</td>
                 <td>{{ item.author }}</td>
                 <td>{{ item.type }}</td>
@@ -54,6 +105,31 @@
         <input type="hidden" name="form_type" value="clear">
         <button type="submit" class="btn btn-outline-info rounded-pill shadow mt-4">Clear all read items</button>
     </form>
+
+
+    <button class="add-button" onclick="togglePopup()">Add Reading Material</button> <!-- copilot is great for everything except for fixing its own mistakes-->
+    <!-- Add event popup made by copilot--> 
+    <div id="addPopup" class="popup">
+        <form method="post" class="my-3">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <link rel="stylesheet" href="{% static 'bootstrap_yeti.css' %}">
+            <input type="hidden" name="form_type" value="add">
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>  
+    </div>
+    <script>
+        function togglePopup() {
+            var popup = document.getElementById("addPopup");
+            popup.classList.toggle("active");
+        }
+    </script>
+
+
+
+
+
+
 </div>
 
 {% load static %}

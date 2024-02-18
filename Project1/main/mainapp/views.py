@@ -62,7 +62,7 @@ def event_detail(request, event_id):
     return render(request, 'event_detail.html', {'event': event})
   
 def home(request):
-    return calendar(request, 'month')
+    return calendar_view(request, 'month')
 
 def reading_material_view(request):
     form = ReadingMaterialForm()
@@ -91,17 +91,11 @@ def pomodoro_timer(request):
 def draw_view(request):
     return render(request, 'draw.html')
 
-
-
 def add_months(source_date, months):
     month = source_date.month - 1 + months
     year = source_date.year + month // 12
     month = month % 12 + 1
     return date(year, month, 1)
-
-
-
-
 
 def calendar_view(request, period):
     today = date.today()

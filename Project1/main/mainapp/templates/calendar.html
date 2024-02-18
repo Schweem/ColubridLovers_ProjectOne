@@ -79,7 +79,7 @@
             text-decoration: line-through;
         }
         .month-header {
-            background-color: #4CAF50; /* Change the color as needed */
+            background-color: #5abdff; /* Change the color as needed */
             color: white;
             font-size: 1.2em;
             padding: 10px 0;
@@ -94,17 +94,7 @@
 <body>
     <div>
         {% for month, weeks in months_with_weeks.items %}
-        <div class="month-header">{{ month }}</div>
-  
-        <div class="container my-4 mb-1 mt-1">
-          <div class="btn-group d-flex justify-content-center" role="group" aria-label="Calendar views">
-            <a href="{% url 'todo_list' %}" class="btn btn-secondary rounded-pill mx-1">Day</a>
-            <a href="{% url 'calendar' 'week' %}" class="btn btn-secondary rounded-pill mx-1">Week</a>
-            <a href="{% url 'calendar' 'month' %}" class="btn btn-secondary rounded-pill mx-1">Month</a>
-            <a href="{% url 'calendar' 'month' %}" class="btn btn-secondary rounded-pill mx-1">Semester</a>
-          </div>
-        </div>
-  
+        <div class="month-header mt-0 mb-0">{{ month }}</div>
         <table>
             <tr>
                 <th>Monday</th>
@@ -118,7 +108,7 @@
             {% for week in weeks %}
             <tr>
                 {% for day in week %}
-                <td>
+                <td onclick="togglePopup()">
                     {% if day %}
                     <div class="day">
                         <h3>{{ day.day }}</h3>
@@ -143,6 +133,14 @@
 
     </div>
     </style>
+    <div class="container my-4 mb-1 mt-1">
+        <div class="btn-group-vertical d-flex justify-content-center position-fixed" style="bottom: 20px; left: 1.5rem;" role="group" aria-label="Calendar views">
+            <a href="{% url 'todo_list' %}" class="btn btn-secondary rounded-pill mx-1 mt-1">Day</a>
+            <a href="{% url 'calendar' 'week' %}" class="btn btn-secondary rounded-pill mx-1 mt-1">Week</a>
+            <a href="{% url 'calendar' 'month' %}" class="btn btn-secondary rounded-pill mx-1 mt-1">Month</a>
+            <a href="{% url 'calendar' 'semester' %}" class="btn btn-secondary rounded-pill mx-1 mt-1">Semester</a>
+        </div>
+    </div>
     <button class="btn btn-primary position-fixed bottom-0 end-0 m-3 shadow" onclick="togglePopup()" style="font-size: 38px; width: 70px; height: 70px; border-radius: 70%;">+</button>
     <!-- Add event popup made by copilot--> 
     <div id="addEventPopup" class="popup">

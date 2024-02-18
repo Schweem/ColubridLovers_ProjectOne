@@ -22,6 +22,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'todo_list' %}">To-Do List</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'reading-list' %}">Reading List</a>
                 </li>
@@ -33,6 +34,17 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'draw' %}">Doodle Space</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'memes' %}">Memes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="magic-wand" href="#">
+                      <img class="magic-wand-icon" style="width: 20px; height: 20px;" src="{% static 'icons/magicwand.svg' %}" alt="Magic Wand">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://novoconnect.ncf.edu/">NovoConnect</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -42,6 +54,7 @@
     {% endblock %}
 
     <!-- Include scr -->
+    <script src="{% static 'js/magicwand.js' %}" defer></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 </body>

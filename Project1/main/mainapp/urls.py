@@ -14,5 +14,7 @@ urlpatterns = [
         path('hours/', views.hours, name='hours'),
         path('timer/', views.pomodoro_timer, name='timer'),
         path('draw/', views.draw_view, name='draw'), 
+        path('memes/', views.memes, name='memes'),
         path('', views.home, name='home')
+        
 ]

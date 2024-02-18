@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
         clearInterval(interval); // Clear any existing interval
         isRunning = true;
         interval = setInterval(function () {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
+            let minutes = parseInt(timer / 60, 10);
+            let seconds = parseInt(timer % 60, 10);
 
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
@@ -25,7 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (--timer < 0) {
                 clearInterval(interval);
-                alert("Time's up!");
+                if (currentDuration === durations.pomodoro) {
+                    alert("Great work! Time for a break, lets go for a walk!");
+                } else {
+                    alert("Your doing great, let's get back to it!");
+                }
                 isRunning = false;
                 remaining = null; // Reset remaining time
             } else {

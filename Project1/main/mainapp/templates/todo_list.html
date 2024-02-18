@@ -9,23 +9,9 @@
 <!-- This is just a placeholder for now-->
 <html>
 <head>
-    <title>Todo List</title>
     <!-- Link to the Bootstrap CSS for styling -->
     <link rel="stylesheet" href="{% static 'bootstrap_yeti.css' %}">
-    <style>
-        .add-event-button {
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            background-color: #5bc0de;
-            color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 12%;
-            
-        }
-    
+    <style>    
         .popup {
             position: fixed;
             top: 50%;
@@ -56,21 +42,20 @@
         }
         .completed {
             position: relative;
-          }
-          
-          .completed::after {
+        }
+        
+        .completed::after {
             content: "";
             position: absolute;
             top: 50%;
             left: 0;
             width: 100%;
             border-top: 4px solid black;
-          }
+        }
 
-
-        
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Todo List</h1>
@@ -100,12 +85,12 @@
                             <form method="post" action="{% url 'mark_todo_completed' todo.id %}">
                                 {% csrf_token %}
                                 <input type="hidden" name="completed" value="True">
-                                <button type="submit" class="btn btn-primary">Mark as complete</button>
+                                <button type="submit" class="btn btn-primary rounded-pill mx-1 mt-1">Mark as complete</button>
                             </form>
                             <!-- Form to delete the current todo item -->
                             <form method="post" action="{% url 'delete_todo' todo.id %}">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-outline-danger rounded-pill mx-1 mt-1">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -113,7 +98,7 @@
             </tbody>
         </table>
         <!-- Button to trigger the add item modal -->
-        <button class="add-event-button" onclick="togglePopup()">Add Event</button> <!-- copilot is great for everything except for fixing its own mistakes-->
+        <button class="btn btn-primary position-fixed bottom-0 end-0 m-3 shadow" onclick="togglePopup()" style="font-size: 38px; width: 70px; height: 70px; border-radius: 70%;">+</button>
         <!-- Add event popup made by copilot--> 
         <div id="addEventPopup" class="popup">
             <form method="post">
@@ -130,7 +115,14 @@
             }
         </script>
     <!-- add print button-->
-    <button onclick="window.print()">Save this page</button>
+    <style>
+        @media print {
+            @page {
+                size: landscape;
+            }
+        }
+    </style>
+    <button class="btn btn-primary rounded-pill shadow mt-2", onclick="window.print()">Print this page</button>
     <!-- Include jQuery and Bootstrap JS for the modal and other features -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

@@ -11,6 +11,15 @@ from datetime import date, timedelta
 from calendar import monthcalendar, monthrange
 from datetime import timedelta
 import calendar
+import os
+import random
+from django.conf import settings
+from django.http import HttpResponse, HttpResponseNotFound
+from django.shortcuts import render
+import os
+import random
+from django.conf import settings
+
 
 
 # I got a lot of help from here 
@@ -145,6 +154,16 @@ def calendar_view(request, period):
             months_with_weeks[month_name] = weeks
 
     return render(request, 'calendar.html', {'months_with_weeks': months_with_weeks, 'form': form})
+
+def memes(request):
+    images_dir = os.path.join('mainapp', 'static', 'images')
+    image_files = os.listdir(images_dir)
+    random_image = random.choice(image_files)
+    context = {
+        'random_image': random_image
+    }
+    return render(request, 'memes.html', context)
+
 
 # Class List view
 def class_list_view(request): #copilot

@@ -9,11 +9,10 @@
 <!-- Written in large part by copilot -->
 <html>
 <head>
-    <title>Calendar</title>
     <style>
         table {
             margin: auto;
-            width: 95%;
+            width: 100%;
             border-collapse: separate;
         }
         th, td {
@@ -25,6 +24,7 @@
             background-color: #5bc0de;
             color: white;
         }
+
         .event {
             background-color: #f2f2f2;
             margin-bottom: 5px;  /* Reduce margin */
@@ -90,10 +90,21 @@
         }
     </style>
 </head>
+
 <body>
     <div>
         {% for month, weeks in months_with_weeks.items %}
         <div class="month-header">{{ month }}</div>
+  
+        <div class="container my-4 mb-1 mt-1">
+          <div class="btn-group d-flex justify-content-center" role="group" aria-label="Calendar views">
+            <a href="{% url 'todo_list' %}" class="btn btn-secondary rounded-pill mx-1">Day</a>
+            <a href="{% url 'calendar' 'week' %}" class="btn btn-secondary rounded-pill mx-1">Week</a>
+            <a href="{% url 'calendar' 'month' %}" class="btn btn-secondary rounded-pill mx-1">Month</a>
+            <a href="{% url 'calendar' 'month' %}" class="btn btn-secondary rounded-pill mx-1">Semester</a>
+          </div>
+        </div>
+  
         <table>
             <tr>
                 <th>Monday</th>
@@ -132,7 +143,7 @@
 
     </div>
     </style>
-    <button class="add-event-button" onclick="togglePopup()">Add Event</button> <!-- copilot is great for everything except for fixing its own mistakes-->
+    <button class="btn btn-primary position-fixed bottom-0 end-0 m-3 shadow" onclick="togglePopup()" style="font-size: 38px; width: 70px; height: 70px; border-radius: 70%;">+</button>
     <!-- Add event popup made by copilot--> 
     <div id="addEventPopup" class="popup">
         <form method="post">
@@ -143,9 +154,12 @@
         </form>
     </div>
     <script>
-        function togglePopup() {
+        function togglePopup(selectedDate) {
             var popup = document.getElementById("addEventPopup");
             popup.classList.toggle("active");
+            if (selectedDate) {
+                document.getElementById("id_date").value = selectedDate;
+            }
         }
     </script>
 </body>

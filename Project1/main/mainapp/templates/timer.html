@@ -15,7 +15,24 @@
     <!-- Content Wrapper -->
     <div>
         <div class="mb-4">
-            <h5>Let's get to work!</h5>
+            <!-- Motivational quote -->
+            <h5 id="quote"></h5>
+            <script> // script to handle random quote
+                // Array of motivational quotes
+                var quotes = [
+                    "Stay focused and never give up!",
+                    "Believe in yourself and all that you are.",
+                    "You can do it!",
+                    "Lets get it done!",
+                    "Here we go!"
+                ];
+
+                // Select a random quote from the array
+                var randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
+                // Set the random quote as the content of the 'quote' element
+                document.getElementById("quote").textContent = randomQuote;
+            </script>
         </div>
 
         <!-- Timer Mode Buttons -->
@@ -30,9 +47,9 @@
 
         <!-- Timer Control Buttons -->
         <div class="btn-group mb-3" role="group" aria-label="Timer controls">
-            <button class="btn btn-outline-primary btn shadow rounded-pill mx-2" id="stop-button">Stop</button>
+            <button class="btn btn-outline-info btn shadow rounded-pill mx-2" id="stop-button">Stop</button>
             <button class="btn btn-outline-primary btn-lg shadow rounded-pill mx-2" id="start-button">Start</button>
-            <button class="btn btn-outline-primary btn shadow rounded-pill mx-2" id="reset-button">Reset</button>
+            <button class="btn btn-outline-danger btn shadow rounded-pill mx-2" id="reset-button">Reset</button>
         </div>
     </div>
 </div>

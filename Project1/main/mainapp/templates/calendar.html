@@ -6,7 +6,7 @@
 {% block content %}
 
 <!DOCTYPE html>
-<!-- Written in large part by copilot -->
+<!-- In page styling initially written in large part by copilot -->
 <html>
 <head>
     <style>
@@ -21,7 +21,7 @@
             text-align: center;
         }
         th {
-            background-color: #5bc0de;
+            background-color: #008cba;
             color: white;
         }
 
@@ -147,15 +147,15 @@
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Add</button>
-            <button type = "close" onclick="togglePopup()">Close</button>
+            <button type="submit" class="btn btn-primary rounded-pill">Confirm</button>
+            <button type="button" class="btn btn-outline-danger rounded-pill ml-5" onclick="event.preventDefault(); togglePopup()">Close</button>
         </form>
     </div>
     <script>
-        function togglePopup(selectedDate) {
+        function togglePopup(selectedDate) { 
             var popup = document.getElementById("addEventPopup");
             popup.classList.toggle("active");
-            if (selectedDate) {
+            if (selectedDate) { // If a date was selected, set the value of the date input to the selected date (not working / stretching goal)
                 document.getElementById("id_date").value = selectedDate;
             }
         }

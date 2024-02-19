@@ -43,43 +43,30 @@
     .class-list li:last-child {
         border-bottom: none;
     }
-
-    .class-list li a {
-        background-color: #f44336;
-        color: white;
-        padding: 10px 20px;
-        text-decoration: none;
-        border-radius: 5px;
-    }
-
-    .class-list li a:hover {
-        background-color: #e60000;
-    }
 </style>
 
 <div id="classViews" class="mt-5">
     <h2 style="text-align: center;">Current Classes</h2>
     <ul class="class-list mb-4">
         {% for class in current_classes %}
-            <li>{{ class.title }} - {{ class.time }} - {{ class.date }} <a href="{% url 'delete_class' class.id %}">Delete</a></li>
+            <li>{{ class.title }} - {{ class.time }} - {{ class.date }} <a href="{% url 'delete_class' class.id %}" class="btn btn-outline-danger rounded-pill">Delete</a></li>
         {% endfor %}
     </ul>
 
     <h2 style="text-align: center;">Future Classes</h2>
     <ul class="class-list mb-4">
         {% for class in future_classes %}
-            <li>{{ class.title }} - {{ class.attributes }} <a href="{% url 'delete_class' class.id %}">Delete</a></li>
+            <li>{{ class.title }} - {{ class.attributes }} <a href="{% url 'delete_class' class.id %}" class="btn btn-outline-danger rounded-pill">Delete</a></li>
         {% endfor %}
     </ul>
 
     <h2 style="text-align: center;">Completed Classes</h2>
     <ul class="class-list mb-4">
         {% for class in completed_classes %}
-            <li>{{ class.title }} - {{ class.attributes }} <a href="{% url 'delete_class' class.id %}">Delete</a></li>
+            <li>{{ class.title }} - {{ class.attributes }} <a href="{% url 'delete_class' class.id %}" class="btn btn-outline-danger rounded-pill">Delete</a></li>
         {% endfor %}
     </ul>
 </div>
-
 
 <button class="btn btn-primary position-fixed bottom-0 end-0 m-3 shadow" onclick="togglePopup()" style="font-size: 38px; width: 70px; height: 70px; border-radius: 70%;">+</button>
 
@@ -98,7 +85,5 @@
         popup.classList.toggle("active");
     }
 </script>
-
-
 
 {% endblock %}

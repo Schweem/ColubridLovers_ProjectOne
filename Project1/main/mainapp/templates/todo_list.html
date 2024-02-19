@@ -37,7 +37,7 @@
             text-align: center;
         }
         th {
-            background-color: #5bc0de;
+            background-color: #008cba;
             color: white;
         }
         .completed {
@@ -52,7 +52,6 @@
             width: 100%;
             border-top: 4px solid black;
         }
-
     </style>
 </head>
 
@@ -85,7 +84,7 @@
                             <form method="post" action="{% url 'mark_todo_completed' todo.id %}">
                                 {% csrf_token %}
                                 <input type="hidden" name="completed" value="True">
-                                <button type="submit" class="btn btn-primary rounded-pill mx-1 mt-1">Mark as complete</button>
+                                <button type="submit" class="btn btn-info rounded-pill mx-1 mt-1">Mark as complete</button>
                             </form>
                             <!-- Form to delete the current todo item -->
                             <form method="post" action="{% url 'delete_todo' todo.id %}">
@@ -104,8 +103,8 @@
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit">Add</button>
-                <button type = "close" onclick="togglePopup()">Close</button>
+                <button type="submit" class="btn btn-primary rounded-pill">Confirm</button>
+                <button type="button" class="btn btn-outline-danger rounded-pill ml-5" onclick="event.preventDefault(); togglePopup()">Close</button>
             </form>
         </div>
         <script>
@@ -118,7 +117,7 @@
     <style>
         @media print {
             @page {
-                size: landscape;
+                size: landscape; /* Set the page orientation to landscape */
             }
         }
     </style>

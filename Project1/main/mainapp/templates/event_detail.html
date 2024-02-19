@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Event Detail{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .event {
+            background-color: #f2f2f2;
+            margin: 20px auto;  /* Center the event and add some margin */
+            padding: 20px;  /* Add some padding */
+            font-size: 1em;  /* Set the font size */
+            border: 1px solid #ddd;
+            width: 50%;  /* Set the width */
+        }
+        .completed {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <div class="event {% if event.completed %}completed{% endif %}">
+        <h2>{{ event.title }}</h2>
+        <p>{{ event.description }}</p>
+        {% if event.url %}
+        <p><a href="{{ event.url }}">Link</a></p>
+        {% endif %}
+        <p>Time: {{ event.time }}</p>
+        <form method="post" action="{% url 'mark_todo_completed' event.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="completed" value="True">
+            <button type="submit" class="btn btn-primary">Mark as complete</button>
+        </form>
+    </div>
+
+</body>
+</html>
+
+{% endblock %}

@@ -71,9 +71,14 @@ def reading_material_view(request):
     reading_list = readingMaterial.objects.all()
     return render(request, 'readingList.html', {'form': form, 'reading_list': reading_list})
 
+
+#Safari -- Copilot wrote this -- Super simple
+#View function to display our timer page
 def pomodoro_timer(request):
     return render(request, 'timer.html')
 
+#Safari -- Copilot wrote this 
+#View function to display our draw page
 def draw_view(request):
     return render(request, 'draw.html')
 
@@ -121,6 +126,9 @@ def calendar(request, period): # Written in large part by copilot
     context = {'weeks': weeks, 'form': form}
     return render(request, 'calendar.html', context)
 
+#Safari -- Copilot helped write this one as well
+
+# View function for displaying memes
 def memes(request):
     images_dir = os.path.join('mainapp', 'static', 'images')
     image_files = os.listdir(images_dir)

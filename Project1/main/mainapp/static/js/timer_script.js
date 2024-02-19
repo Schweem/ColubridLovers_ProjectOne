@@ -1,3 +1,18 @@
+/*
+* Safari -- 
+* This script was made with gpt and a little copilot for modifications
+* I didn't use tutorials but I did use several reference sites to get inspiration 
+* for the look and functionality of the timer 
+* References used: https://pomofocus.io/
+* https://studywithme.io/aesthetic-pomodoro-timer/
+* https://www.tomatotimers.com/
+*/
+
+
+
+
+
+// Event listener to start the timer when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     let interval;
     let isRunning = false;
@@ -10,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     let currentDuration = durations.pomodoro; // Default to Pomodoro
 
+    // Function to start the timer
     function startTimer(duration) {
         let timer = remaining !== null ? remaining : duration;
         clearInterval(interval); // Clear any existing interval
@@ -38,15 +54,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
     }
 
+    // Event listener for the start button
     document.querySelector('#start-button').addEventListener('click', function () {
         startTimer(currentDuration);
     });
 
+    // Event listener for the stop button
     document.querySelector('#stop-button').addEventListener('click', function () {
         clearInterval(interval);
         isRunning = false;
     });
 
+    // Event listener for the reset button
     document.querySelector('#reset-button').addEventListener('click', function () {
         clearInterval(interval);
         display.textContent = "25:00";
@@ -55,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
         currentDuration = durations.pomodoro; // Reset to default Pomodoro time
     });
 
+    // Event listener for the Pomodoro button
     document.querySelector('#pomodoro').addEventListener('click', function () {
         currentDuration = durations.pomodoro;
         display.textContent = "25:00";
@@ -65,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Event listener for the Short Break button
     document.querySelector('#short-break').addEventListener('click', function () {
         currentDuration = durations.shortBreak;
         display.textContent = "05:00";
@@ -75,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Event listener for the Long Break button
     document.querySelector('#long-break').addEventListener('click', function () {
         currentDuration = durations.longBreak;
         display.textContent = "10:00";

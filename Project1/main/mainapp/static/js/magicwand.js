@@ -1,5 +1,13 @@
+/*
+* Made by safari
+* Just one copilot prompt for the JS and the added couple lines of html for the base template
+* Super simple no other resources needed
+*/
+
+// Event listener for when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     const facts = [
+        // Array of facts about New College
         "New College was founded on October 11, 1960, as a private college.",
         "In 1961, trustees secured options to purchase the former Charles Ringling estate and 12 acres of airport land for the campus.",
         "The campus was dedicated on November 18, 1962, with soil from Harvard mixed with New College's as a symbol of shared ideals.",
@@ -30,12 +38,12 @@ document.addEventListener('DOMContentLoaded', function() {
         "Dr. Donal O’Shea was appointed as the College's fifth president in 2012.",
         "In 2013, a new bell tower was dedicated at President O’Shea's inauguration.",
         "The Cross College Alliance, formerly C4 Consortium, was renamed in 2017, including New College and other local institutions."
-      ];
-      
-  
+    ];
+
+    // Event listener for when the magic-wand element is clicked
     document.querySelector('#magic-wand').addEventListener('click', function(e) {
-      e.preventDefault(); // Prevent the default action
-      const randomFact = facts[Math.floor(Math.random() * facts.length)];
-      alert(randomFact);
+        e.preventDefault(); // Prevent the default action
+        const randomFact = facts[Math.floor(Math.random() * facts.length)]; // Get a random fact from the facts array
+        alert(randomFact); // Display the random fact in an alert
     });
-  });
+});

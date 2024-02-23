@@ -25,6 +25,18 @@
         .completed {
             text-decoration: line-through;
         }
+        .delete_todo {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            margin: 10px 0;
+        }
+        .button_section { /* This is a section so we can have the buttons side by side */
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
 </head>
 <body>
@@ -36,12 +48,19 @@
         {% endif %}
         <p>Date: {{ event.date }}</p>
         <p>Time: {{ event.time }}</p>
-        <!-- This button will allow us to mark it as completed -->
-        <form method="post" action="{% url 'mark_todo_completed' event.id %}">
-            {% csrf_token %}
-            <input type="hidden" name="completed" value="True">
-            <button type="submit" class="btn btn-primary">Mark as complete</button>
-        </form>
+        <div class="button_section">
+            <!-- This button will allow us to mark it as completed -->
+            <form method="post" action="{% url 'mark_todo_completed' event.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="completed" value="True">
+                <button type="submit" class="btn btn-primary">Mark as complete</button>
+            </form>
+            <!-- Form to delete the current todo item -->
+            <form method="post" action="{% url 'delete_todo' event.id %}" >
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger rounded-pill mx-1 mt-1">Delete</button>
+            </form>
+        </div>
     </div>
 
 </body>

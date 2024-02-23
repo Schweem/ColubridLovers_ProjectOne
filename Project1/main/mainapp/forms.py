@@ -6,7 +6,7 @@ from .models import Event, readingMaterial, classList
 #https://www.geeksforgeeks.org/django-form-field-custom-widgets/
 #https://cdf.9vo.lt/3.0/django.forms.widgets/SelectDateWidget.html
 
-#written in large part by copilot
+# Wes -- written in large part by copilot
 class EventForm(forms.ModelForm):
     """
     A form for creating or updating an event.
@@ -47,7 +47,7 @@ class ReadingMaterialForm(forms.ModelForm):
         fields = ['title', 'author', 'type', 'link']
         
         
-# Create a form to add a class
+# Wes -- Create a form to add a class
 
 class classListForm(forms.ModelForm):
     """

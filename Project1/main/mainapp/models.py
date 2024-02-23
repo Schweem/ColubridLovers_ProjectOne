@@ -1,7 +1,8 @@
 from django.db import models
 # docs powered by CoPilot
 
-#todo list model
+# Wes -- Written by copilot and modified to fit my needs, 
+# This is the model for the calendar and todo list
 class Event(models.Model):
     """
     Represents an event.
@@ -43,7 +44,7 @@ class readingMaterial(models.Model):
 
     def __str__(self):
         return self.title
-    
+# Wes -- Extra comments not added by me, but the base class was mine 
 class classList(models.Model):
     """
     Represents a class.

@@ -4,6 +4,6 @@ from .models import readingMaterial, classList
 
 
 # Register your models here.
-admin.site.register(Event) #copilot
+admin.site.register(Event) 
 admin.site.register(readingMaterial)
 admin.site.register(classList)

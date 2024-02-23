@@ -4,7 +4,6 @@
 {% block title %}Reading List{% endblock %}
 
 {% block content %}
-
 <!DOCTYPE html>
 <!-- This is just a placeholder for now-->
 <html>
@@ -56,6 +55,7 @@
 </head>
 
 <body>
+    <!-- Wes, Here we will display the events, written by copilot-->
     <div class="container mt-2">
         <h1>Todo List</h1>
         <table>
@@ -70,7 +70,7 @@
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody> <!-- Go through every todo that was passed to the page, in the order they were passed to it (sorting done in views)-->
                 {% for todo in todos %}
                     <tr class="{{ todo.completed|yesno:'completed,' }}">
                     <!-- Display the title, description, and completion status of the current todo item -->

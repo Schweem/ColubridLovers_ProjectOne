@@ -4,7 +4,8 @@
 {% block title %}Event Detail{% endblock %}
 
 {% block content %}
-
+<!-- Wes. This was written in large part by copilot -->
+<!-- This is the detailed event view of a specefic event showcasing its important details-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +36,7 @@
         {% endif %}
         <p>Date: {{ event.date }}</p>
         <p>Time: {{ event.time }}</p>
+        <!-- This button will allow us to mark it as completed -->
         <form method="post" action="{% url 'mark_todo_completed' event.id %}">
             {% csrf_token %}
             <input type="hidden" name="completed" value="True">

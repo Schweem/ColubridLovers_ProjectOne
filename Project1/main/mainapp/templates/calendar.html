@@ -93,6 +93,8 @@
 
 <body>
     <div>
+        <!-- Wes Mostly written by copilot and gpt-->
+        <!-- For every month and  the weeks inside it-->
         {% for month, weeks in months_with_weeks.items %}
         <div class="month-header mt-0 mb-0">{{ month }}</div>
         <table>
@@ -105,14 +107,15 @@
                 <th>Saturday</th>
                 <th>Sunday</th>
             </tr>
+            <!-- For every week we will get the events-->
             {% for week in weeks %}
             <tr>
-                {% for day in week %}
+                {% for day in week %} <!-- Get the events on that day, and if there is a day we will display its important info, as well as make it a button to add an event, and or click the event to go to its details page-->
                 <td onclick="togglePopup()">
                     {% if day %}
                     <div class="day">
                         <h3>{{ day.day }}</h3>
-                        {% for event in day.events %}
+                        {% for event in day.events %} <!-- This next section will make the event itself a button we can click on to get to the events detailed page-->
                         <a href="{% url 'event_detail' event.id %}" style="text-decoration: none; color: inherit;">
                             <div class="event {% if event.completed %}completed{% endif %}" style="cursor: pointer;">
                                 <h3>{{ event.title }}</h3>             

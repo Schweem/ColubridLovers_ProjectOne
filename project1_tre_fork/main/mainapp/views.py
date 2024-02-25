@@ -61,12 +61,14 @@ def delete_todo(request, todo_id): #copilot wrote this mostly
 #identicle to the delete_todo function but we just mark the todo as completed instead of deleting it. 
 def mark_todo_completed(request, todo_id):
     todo = get_object_or_404(Event, id=todo_id)
-    todo.completed = True
 
-    # Tre - adding kudos whenever item marked completed
-    kudos_counter = KudosCounter.objects.first()
-    kudos_counter.count += 1 # incrementing by 1 for now
-    kudos_counter.save()
+    # Tre - adding kudos whenever item newly marked completed
+    if todo.completed == False: # this way you can't just remark it
+        kudos_counter = KudosCounter.objects.first()
+        kudos_counter.count += 1 # incrementing by 1 for now
+        kudos_counter.save()
+
+    todo.completed = True # Tre: moved this down here
 
     todo.save()
     return redirect('todo_list')

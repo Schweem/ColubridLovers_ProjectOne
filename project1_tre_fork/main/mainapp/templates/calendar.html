@@ -141,6 +141,9 @@
             <a href="{% url 'calendar' 'semester' %}" class="btn btn-secondary rounded-pill mx-1 mt-1">Semester</a>
         </div>
     </div>
+    <!-- Tre: Generate iCal file button, gpt wrote this up -->
+    <button class="btn btn-primary rounded-pill shadow mt-4 position-fixed" style="bottom: 30px; right: 6.5rem;" onclick="generateIcal()">Download iCal</button>
+
     <button class="btn btn-primary position-fixed bottom-0 end-0 m-3 shadow" onclick="togglePopup()" style="font-size: 38px; width: 70px; height: 70px; border-radius: 70%;">+</button>
     <!-- Add event popup made by copilot--> 
     <div id="addEventPopup" class="popup">
@@ -159,6 +162,35 @@
                 document.getElementById("id_date").value = selectedDate;
             }
         }
+
+        // Tre: javascript for downloading ical file, thx GPT3.5
+        function generateIcal() {
+        fetch('{% url "generate_ical" %}', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'calendar.ics';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+            console.error('There was an error with the fetch operation:', error);
+        });
+    }
     </script>
 </body>
 </html>

@@ -15,6 +15,7 @@ urlpatterns = [
         path('timer/', views.pomodoro_timer, name='timer'),
         path('draw/', views.draw_view, name='draw'), 
         path('memes/', views.memes, name='memes'),
-        path('', views.home, name='home')
+        path('', views.home, name='home'),
         
+        path('generate_ical/', views.generate_ical_view, name='generate_ical')
 ]

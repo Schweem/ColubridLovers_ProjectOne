@@ -7,7 +7,7 @@ from .forms import EventForm, ReadingMaterialForm, ReadingMaterialForm, classLis
 from .models import Event, readingMaterial, classList, KudosCounter
 from datetime import date, timedelta
 from django.shortcuts import render
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from calendar import monthcalendar, monthrange
 from datetime import timedelta
 import calendar
@@ -19,7 +19,7 @@ from django.shortcuts import render
 import os
 import random
 from django.conf import settings
-
+from datetime import timezone as dt_timezone
 
 
 # I got a lot of help from here 
@@ -171,6 +171,44 @@ def calendar_view(request, period):
     return render(request, 'calendar.html', {'months_with_weeks': months_with_weeks, 'form': form})
 
 #Safari -- Copilot helped write this one as well
+
+# Tre -- code for generating iCal files from calendar:
+def generate_ical(events):
+    """
+    Generate iCal data from a list of events.
+    """
+    ical_data = "BEGIN:VCALENDAR\n"
+    ical_data += "VERSION:2.0\n"
+    ical_data += "CALSCALE:GREGORIAN\n"
+    ical_data += "X-WR-CALNAME:NCFTaskNinja\n"
+    ical_data += "X-WR-TIMEZONE:America/New_York\n"
+
+    for event in events:
+        ical_data += "BEGIN:VEVENT\n"
+        ical_data += f"UID:{event.id}@ncftaskninja.com\n"  # Unique identifier for the event
+        ical_data += f"SUMMARY:{event.title}\n"
+        ical_data += f"DESCRIPTION:{event.description}\n"
+        event_time = datetime.combine(event.date, event.time) + timedelta(hours=5) # love a ductape solution to timezone shenanigans
+        start_datetime = event_time.strftime('%Y%m%dT%H%M%S') # sorry for the long line
+        ical_data += f"DTSTART:{start_datetime}Z\n"
+        ical_data += f"DTEND:{start_datetime}Z\n" # not sure why google datetimes end in Zs for their icals
+        ical_data += "END:VEVENT\n"
+    ical_data += "END:VCALENDAR\n"
+    return ical_data
+
+def generate_ical_view(request):
+    """
+    View to generate and serve the iCal file.
+    """
+    if request.method == 'POST':
+        # Fetch all events (you might want to filter them based on the displayed ones)
+        events = Event.objects.all()
+        ical_data = generate_ical(events)
+        response = HttpResponse(ical_data, content_type='text/calendar')
+        response['Content-Disposition'] = 'attachment; filename="calendar.ics"'
+        return response
+    else:
+        return HttpResponseBadRequest()
 
 # View function for displaying memes
 def memes(request):

@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.utils import timezone
 from django.db.models import Q
 from .forms import EventForm, ReadingMaterialForm, ReadingMaterialForm, classListForm
-from .models import Event, readingMaterial, classList
+from .models import Event, readingMaterial, classList, KudosCounter
 from datetime import date, timedelta
 from django.shortcuts import render
 from datetime import date, timedelta
@@ -43,7 +43,15 @@ def todo_list(request): # copilot
         Q(completed=False, date__lte=now.date()) | 
         Q(date__gte=now.date())
     ).order_by('date', 'time')
-    return render(request, 'todo_list.html', {'todos': todos, 'form': form})
+
+    # Tre: Get or create the KudosCounter object
+    kudos_counter, created = KudosCounter.objects.get_or_create()
+    if created:
+        # If the object was created, initialize its count
+        kudos_counter.count = 0
+        kudos_counter.save()
+
+    return render(request, 'todo_list.html', {'todos': todos, 'form': form, 'kudos_counter': kudos_counter}) # Tre: added kudos counter val to return 
 
 def delete_todo(request, todo_id): #copilot wrote this mostly
     todo = get_object_or_404(Event, id=todo_id)
@@ -54,6 +62,12 @@ def delete_todo(request, todo_id): #copilot wrote this mostly
 def mark_todo_completed(request, todo_id):
     todo = get_object_or_404(Event, id=todo_id)
     todo.completed = True
+
+    # Tre - adding kudos whenever item marked completed
+    kudos_counter = KudosCounter.objects.first()
+    kudos_counter.count += 1 # incrementing by 1 for now
+    kudos_counter.save()
+
     todo.save()
     return redirect('todo_list')
 

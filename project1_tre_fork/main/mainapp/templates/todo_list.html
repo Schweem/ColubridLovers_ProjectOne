@@ -57,7 +57,12 @@
 
 <body>
     <div class="container mt-2">
-        <h1>Todo List</h1>
+        <h1 class="d-inline-block">Todo List</h1>
+        <div class="d-inline-block ml-auto" style="float: right">Kudos: <span id="kudoPoints">{{ kudos_counter.count }}</span></div>
+        <!-- Tre: Added kudos display text to template, chatgpt helped. Link here: -->
+        <!-- 
+            https://chat.openai.com/share/fb461744-a7a5-4782-991e-49ddd331c257
+        -->
         <table>
             <thead>
                 <tr>

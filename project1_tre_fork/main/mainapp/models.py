@@ -1,6 +1,10 @@
 from django.db import models
 # docs powered by CoPilot
 
+# Tre - kudos number field model
+class KudosCounter(models.Model):
+    count = models.IntegerField(default=0)
+
 #todo list model
 class Event(models.Model):
     """

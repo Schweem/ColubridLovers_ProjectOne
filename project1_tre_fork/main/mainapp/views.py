@@ -212,7 +212,7 @@ def generate_ical_view(request):
 
 # View function for displaying memes
 def memes(request):
-    images_dir = os.path.join('mainapp', 'static', 'images')
+    images_dir = os.path.join(settings.BASE_DIR, 'mainapp', 'static', 'images') # Tre: adding settings.BASE_DIR made it work on my branch
     image_files = os.listdir(images_dir)
     random_image = random.choice(image_files)
     context = {
